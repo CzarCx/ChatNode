@@ -1,6 +1,7 @@
 var socket = io.connect('http://localhost:8080');
 var list = document.querySelector('#lista-users');
 var user = document.querySelector('#userName');
+var userId = document.querySelector('#userId');
 var modal = document.querySelector('#modal');
 var username = window.location.pathname.replace('/chat/', '');
 var clientes = [];
@@ -10,8 +11,11 @@ function conectarChat() {
   var id = socket.id;
   console.log('id:', socket.id, 'username:', username);
   var input = '';
+  var info = '';
   input = username;
+  info = socket.id
   user.innerHTML = input;
+  userId.innerHTML = info;
   modal.innerHTML = input; 
   $.post('/login', { username: username, id: id }, function (data) {
     console.log(data);
@@ -22,7 +26,7 @@ function conectarChat() {
     clientes.forEach(function (cliente) {
       html += '<li>' + cliente.username + '</li>';
     });
-    modali += '<p id="status-modal">Esperando webones</p>';
+    modali += '<p id="status-modal">Esperando...</p>';
     list.innerHTML = html;
     modal.innerHTML = modali;
     $('.loader').hide();
@@ -74,11 +78,10 @@ socket.on('mensaje', function (data) {
   if (data.id == socket.id) {
     var msj = `
     <div class="local-message">
-      <strong>${data.username} </strong>
+      <strong>${data.username}</strong>
       <p>${insertarSaltosDeLinea(sanitized)}</p>
-      <p id="date-message">${horaFormateada}</p>
+      <p id="date-message">${horaFormateada} </p>
     </div>
-    <img src="../img/profile.png" alt="profile-photo" id="profile-photo2">
     `;
     document.querySelector('.mensajes-container').innerHTML += msj;
   } else {
@@ -86,7 +89,7 @@ socket.on('mensaje', function (data) {
     <div class="remote-message">
       <strong>${data.username} </strong>
       <p>${insertarSaltosDeLinea(sanitized)}</p>
-      <p id="date-message">${horaFormateada}</p>
+      <p id="date-message"><strong id="idUsaerin">${data.id}</strong>${horaFormateada}</p>
     </div>
     `;
     mostrarModal('<p id="status-modal">'+ data.username + " envió un mensaje"+ "</p>"); 
@@ -136,7 +139,7 @@ socket.on('socket_conectado', function (data, id) {
     var inputValue = inputElement.value.trim();
 
     if (inputValue.length > 0) {
-      mostrarModal('<p>' + 'Estás escribiendo...' + '</p>');
+      mostrarModal('<p id="status-modal">' + 'Estás escribiendo...' + '</p>');
       socket.emit('notificar', data);
       console.log('holiiii');
     } else {
@@ -148,11 +151,6 @@ socket.on('socket_conectado', function (data, id) {
   list.innerHTML = html;
 });
 
-socket.on('escribiendo', function(data) {
-  if (data.username !== username) {
-    mostrarModal('<p>' + data.username + ' está escribiendo...' + '</p>');
-  }
-});
 
 /*
 socket.on('socket_conectado', (id) =>{
@@ -163,7 +161,7 @@ socket.on('socket_conectado', (id) =>{
 socket.on('notify', (id) =>{
 
   console.log('SAAAAAAAAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa' + id);
-  mostrarModal('<p>'+id + ' esta escribiendo...' + '</p>');
+  mostrarModal('<p id="status-modal">'+id + '<br>' +' esta escribiendo...' + '</p>');
 })
 /*
 socket.on('notify', (id) =>{
