@@ -3,9 +3,9 @@ const bodyParser = require('body-parser');
 const app = express();
 const server = require('http').Server(app);
 var io = require('socket.io')(server, {
-  cors: {
-    origin: '*',
-  }
+    cors: {
+      origin: '*',
+    }
 });
 
 let clientes = [];
