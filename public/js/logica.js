@@ -144,42 +144,20 @@ socket.on('socket_conectado', function (data, id) {
     } else {
     }
   });
-
-  mostrarModal('<p id="status-modal">' + data.username + " se unio a la conversación" + '</p>');
+  if (data.username != undefined){
+    mostrarModal('<p id="status-modal">' + data.username + " se unio a la conversación" + '</p>');
+  }
+  
 
   list.innerHTML = html;
 });
 
-
-/*
-socket.on('socket_conectado', (id) =>{
-  socket.emit('notificar', id);
-  mostrarModal("puto")
-});
-*/
 socket.on('notify', (id) =>{
 
   console.log('SAAAAAAAAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa' + id);
   mostrarModal('<p id="status-modal">'+id + '<br>' +' esta escribiendo...' + '</p>');
 })
-/*
-socket.on('notify', (id) =>{
-  var inputElement = document.querySelector('#input');
-  inputElement.addEventListener('input', function() {
-    mostrarModal('<p>'+id + ' está escribiendo...' + '</p>');
-  });
-  console.log('hola');
 
-})
-*/
-/*
-socket.on('escribiendo', function (data) {
-  var inputElement = document.querySelector('#input');
-  inputElement.addEventListener('input', function() {
-    mostrarModal('<p>'+data.username + ' está escribiendo...' + '</p>');
-  });
-});
-*/
 document.addEventListener("DOMContentLoaded", function() {
   setTimeout(cerrarModal, 5000);
 });

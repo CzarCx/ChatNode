@@ -13,7 +13,7 @@ let clientes = [];
 app.use(express.static('public'));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-server.listen(8080, () => console.log('Servidor corriendo en http://localhost:8080'));
+server.listen(8080, () => console.log('Servidor corriendo en https://app2-node.onrender.com/'));
 
 app.get('/', function (req, res) {
   res.sendFile(__dirname + '/public/index.html');
