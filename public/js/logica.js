@@ -95,7 +95,7 @@ socket.on('mensaje', function (data) {
     mostrarModal('<p id="status-modal">'+ data.username + " envió un mensaje"+ "</p>"); 
     document.querySelector('.mensajes-container').innerHTML += msj;
   }
-  var mensajesContainer = document.querySelector('.mensajes-container');
+  var mensajesContainer = document.querySelector('.text-container');
   mensajesContainer.scrollTop = mensajesContainer.scrollHeight;
 });
 
