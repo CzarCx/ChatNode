@@ -2,7 +2,11 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
 const server = require('http').Server(app);
-const io = require('socket.io')(server);
+var io = require('socket.io')(server, {
+  cors: {
+    origin: '*',
+  }
+});
 
 let clientes = [];
 
