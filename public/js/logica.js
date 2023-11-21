@@ -1,4 +1,4 @@
-const socket = io('http://localhost:8080',{transports: ['websocket']});
+const socket = io.connect('http://localhost:8080',{transports: ['websocket']});
 var list = document.querySelector('#lista-users');
 var user = document.querySelector('#userName');
 var userId = document.querySelector('#userId');
