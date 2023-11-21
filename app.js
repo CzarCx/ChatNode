@@ -45,7 +45,6 @@ io.on('connection', (socket) => {
   console.log('Socket conectado', id);
   socket.emit('socket_conectado', { id: id });
   socket.on('notificar', () => {
-    console.log('Se ha notificadssssssssssssssso', id);
     socket.broadcast.emit('notify', id);
   })
   socket.on('disconnect', () => {

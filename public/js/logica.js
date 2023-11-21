@@ -141,7 +141,6 @@ socket.on('socket_conectado', function (data, id) {
     if (inputValue.length > 0) {
       mostrarModal('<p id="status-modal">' + 'Estás escribiendo...' + '</p>');
       socket.emit('notificar', data);
-      console.log('holiiii');
     } else {
     }
   });
