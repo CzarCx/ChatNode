@@ -1,17 +1,8 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
-const server = require('https').Server(app);
+const server = require('http').Server(app);
 const io = require('socket.io')(server);
-
-app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', 'https://app2-node.onrender.com');
-  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
-  res.header('Access-Control-Allow-Headers', 'Content-Type');
-  next();
-});
-
-
 
 let clientes = [];
 
